@@ -135,7 +135,7 @@
                             <!-- Message. Default to the left -->
                             <div class="direct-chat-msg">
                                 <div class="direct-chat-infos clearfix">
-                                    <span class="direct-chat-name float-left">Alexander Pierce</span>
+                                    <span class="direct-chat-name float-left">{{ Auth::user()->name }}</span>
                                     <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
                                 </div>
                                 <!-- /.direct-chat-infos -->
@@ -168,7 +168,7 @@
                             <!-- Message. Default to the left -->
                             <div class="direct-chat-msg">
                                 <div class="direct-chat-infos clearfix">
-                                    <span class="direct-chat-name float-left">Alexander Pierce</span>
+                                    <span class="direct-chat-name float-left">{{ Auth::user()->name }}</span>
                                     <span class="direct-chat-timestamp float-right">23 Jan 5:37 pm</span>
                                 </div>
                                 <!-- /.direct-chat-infos -->
