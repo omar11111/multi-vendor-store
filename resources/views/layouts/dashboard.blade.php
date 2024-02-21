@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{env('app_name')}}</title>
+    <title>{{ env('app_name') }}</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -65,6 +65,8 @@
                     </div>
                 </div>
 
+
+
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
@@ -82,6 +84,17 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
+                        <li class="nav-item">
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button href="" class="btn btn-outline-danger my-4  w-100">
+                                    <i class="nav-icon fas fa-th"></i>
+
+                                        Logout
+                                    
+                                </button>
+                            </form>
+                        </li>
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item menu-open">
@@ -113,6 +126,9 @@
                                 </li>
                             </ul>
                         </li>
+
+
+
                         <li class="nav-item">
                             <a href="pages/widgets.html" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
