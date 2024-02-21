@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -27,18 +29,22 @@ class CategoryController extends Controller
     public function create()
     {
         $parents = Category::all();
-        return view('dashboard.categories.create',compact('parents'));
+        return view('dashboard.categories.create', compact('parents'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $request->merge(['slug' => Str::slug($request->post('name'))]);
+        $status = $request->post('status') ? 'active' : 'inactive';
+        $request->merge(['status' => $status]);
+        Category::create($request->all());
+        return Redirect::route('categories.index')->with('success','Category Created');
     }
 
     /**

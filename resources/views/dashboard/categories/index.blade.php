@@ -6,7 +6,11 @@
 @endsection
 
 @section('content')
-
+    @if (session()->has('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="mb-5">
         <a href="{{ route('categories.create') }}" class="btn btn-outline-success ">Create</a>
     </div>
@@ -41,6 +45,7 @@
                                 <th>Name</th>
                                 <th>Parent</th>
                                 <th>Created At</th>
+                                <th>Status</th>
                                 <th colspan="2">Action</th>
                             </tr>
                         </thead>
@@ -52,6 +57,7 @@
                                     <td>{{ $category->name }}</td>
                                     <td>{{ $category->parent_id }}</td>
                                     <td>{{ $category->created_at }}</td>
+                                    <td>{{ $category->status }}</td>
                                     <td>
                                         <a href="{{ route('categories.edit', $category->id) }}"
                                             class="btn btn-block btn-outline-info btn-sm">Edit</a>

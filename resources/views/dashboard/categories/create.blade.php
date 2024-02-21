@@ -15,11 +15,12 @@
             <!-- general form elements -->
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Quick Example</h3>
+                    <h3 class="card-title">Create Category</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{ route('categories.store') }}">
+                <form action="{{ route('categories.store') }}" method="POST">
+                    @csrf
                     <div class="card-body">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Name</label>
@@ -46,12 +47,13 @@
                             <label for="exampleInputFile">Image</label>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                                    <input type="file" class="custom-file-input" name="image" id="exampleInputFile">
                                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
+                            
                             <label for="exampleInputEmail1" class="d-block">Status</label>
                             <input type="checkbox" name="status" checked data-bootstrap-switch data-off-color="danger"
                                 data-on-color="success">
