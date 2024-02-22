@@ -44,7 +44,7 @@ class CategoryController extends Controller
         $status = $request->post('status') ? 'active' : 'inactive';
         $request->merge(['status' => $status]);
         Category::create($request->all());
-        return Redirect::route('categories.index')->with('success','Category Created');
+        return Redirect::route('dashboard.categories.index')->with('success', 'Category Created');
     }
 
     /**
@@ -62,11 +62,14 @@ class CategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     
      */
     public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $parents  = Category::where('id', '<>', $id)->get();
+
+        return view('dashboard.categories.edit', compact('category', 'parents'));
     }
 
     /**
@@ -74,11 +77,16 @@ class CategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $status = $request->post('status') ? 'active' : 'inactive';
+        $request->merge(['status' => $status]);
+        $category->update($request->all());
+
+        return Redirect::route('dashboard.categories.index')->with('success', 'Category Updated');
     }
 
     /**

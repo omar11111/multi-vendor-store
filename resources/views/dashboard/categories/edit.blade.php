@@ -5,7 +5,7 @@
 @section('breadcrumb')
     @parent
     <li class="breadcrumb-item"><a href="{{ route('dashboard.categories.index') }}">Categories</a></li>
-    <li class="breadcrumb-item active">Create</li>
+    <li class="breadcrumb-item active">Edit</li>
 @endsection
 
 @section('content')
@@ -19,12 +19,13 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{ route('dashboard.categories.store') }}" method="POST">
+                <form action="{{ route('dashboard.categories.update', $category->id) }}" method="POST">
                     @csrf
+                    @method('put')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Name</label>
-                            <input type="text" class="form-control" name="name" placeholder="Category Name">
+                            <input type="text" class="form-control" name="name" value="{{ $category->name }}" placeholder="Category Name">
                         </div>
 
                         <div class="form-group">
@@ -32,7 +33,7 @@
                             <select class="form-control select2bs4" name="parent_id" style="width: 100%;">
                                 <option value="" selected>Primary Category</option>
                                 @foreach ($parents as $parent)
-                                    <option value="{{ $parent->id }}">{{ $parent->name }}</option>
+                                    <option value="{{ $parent->id }}" @selected($category->parent_id == $parent->id)>{{ $parent->name }}</option>
                                 @endforeach
 
                             </select>
@@ -40,7 +41,7 @@
 
                         <div class="form-group">
                             <label for="exampleInputEmail1">Description</label>
-                            <textarea type="text" class="form-control" name="description" placeholder="Category Description"></textarea>
+                            <textarea type="text" class="form-control" name="description"  placeholder="Category Description">{{ $category->description }}</textarea>
                         </div>
 
                         <div class="form-group">
@@ -55,7 +56,7 @@
                         <div class="form-group">
                             
                             <label for="exampleInputEmail1" class="d-block">Status</label>
-                            <input type="checkbox" name="status" checked data-bootstrap-switch data-off-color="danger"
+                            <input type="checkbox" name="status" @checked($category->status == 'active') data-bootstrap-switch data-off-color="danger"
                                 data-on-color="success">
                         </div>
 
@@ -63,7 +64,7 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </form>
             </div>

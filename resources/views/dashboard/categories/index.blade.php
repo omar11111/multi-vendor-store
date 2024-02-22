@@ -12,7 +12,7 @@
         </div>
     @endif
     <div class="mb-5">
-        <a href="{{ route('categories.create') }}" class="btn btn-outline-success ">Create</a>
+        <a href="{{ route('dashboard.categories.create') }}" class="btn btn-outline-success ">Create</a>
     </div>
     <!-- /.row -->
     <div class="row">
@@ -37,12 +37,13 @@
                     </div> --}}
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap">
+                    <table class="table text-center table-hover text-nowrap">
                         <thead>
                             <tr>
                                 <th></th>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Description</th>
                                 <th>Parent</th>
                                 <th>Created At</th>
                                 <th>Status</th>
@@ -55,15 +56,16 @@
                                     <td></td>
                                     <td>{{ $category->id }}</td>
                                     <td>{{ $category->name }}</td>
-                                    <td>{{ $category->parent_id }}</td>
+                                    <td>{{ $category->description ?? '-' }}</td>
+                                    <td>{{ $category->parent_id ?? '-' }}</td>
                                     <td>{{ $category->created_at }}</td>
                                     <td>{{ $category->status }}</td>
                                     <td>
-                                        <a href="{{ route('categories.edit', $category->id) }}"
+                                        <a href="{{ route('dashboard.categories.edit', $category->id) }}"
                                             class="btn btn-block btn-outline-info btn-sm">Edit</a>
                                     </td>
                                     <td>
-                                        <form action="{{ route('categories.destroy', $category->id) }}">
+                                        <form action="{{ route('dashboard.categories.destroy', $category->id) }}">
                                             @method('delete')
                                             <button type="submit"
                                                 class="btn btn-block btn-outline-danger btn-sm">Delete</button>
