@@ -11,6 +11,11 @@
             {{ session('success') }}
         </div>
     @endif
+    @if (session()->has('deleted'))
+        <div class="alert alert-danger">
+            {{ session('deleted') }}
+        </div>
+    @endif
     <div class="mb-5">
         <a href="{{ route('dashboard.categories.create') }}" class="btn btn-outline-success ">Create</a>
     </div>
@@ -65,8 +70,9 @@
                                             class="btn btn-block btn-outline-info btn-sm">Edit</a>
                                     </td>
                                     <td>
-                                        <form action="{{ route('dashboard.categories.destroy', $category->id) }}">
+                                        <form action="{{ route('dashboard.categories.destroy', $category->id) }}" method="POST">
                                             @method('delete')
+                                            @csrf
                                             <button type="submit"
                                                 class="btn btn-block btn-outline-danger btn-sm">Delete</button>
                                         </form>
@@ -91,5 +97,3 @@
         </div>
     </div>
 @endsection
-
-
