@@ -62,13 +62,17 @@ class CategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     
+
      */
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        $parents  = Category::where('id', '<>', $id)->get();
-
+        $parents  = Category::where('id', '<>', $id)
+            ->where(function ($query) use ($id) {
+                $query->whereNull('parent_id')
+                    ->orWhere('parent_id', '<>', $id);
+            })
+            ->get();
         return view('dashboard.categories.edit', compact('category', 'parents'));
     }
 
