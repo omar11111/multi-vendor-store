@@ -58,7 +58,7 @@
                         <tbody>
                             @forelse ($categories as $category)
                                 <tr>
-                                    <td></td>
+                                    <td><img src="{{ asset('storage/'.$category->image) }}" class="img-fluid"alt=""></td>
                                     <td>{{ $category->id }}</td>
                                     <td>{{ $category->name }}</td>
                                     <td>{{ $category->description ?? '-' }}</td>

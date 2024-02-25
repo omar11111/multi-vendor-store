@@ -15,56 +15,13 @@
             <!-- general form elements -->
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Create Category</h3>
+                    <h3 class="card-title">Category Data</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{ route('dashboard.categories.store') }}" method="POST">
+                <form action="{{ route('dashboard.categories.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Name</label>
-                            <input type="text" class="form-control" name="name" placeholder="Category Name">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Parent</label>
-                            <select class="form-control select2bs4" name="parent_id" style="width: 100%;">
-                                <option value="" selected>Primary Category</option>
-                                @foreach ($parents as $parent)
-                                    <option value="{{ $parent->id }}">{{ $parent->name }}</option>
-                                @endforeach
-
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Description</label>
-                            <textarea type="text" class="form-control" name="description" placeholder="Category Description"></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleInputFile">Image</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="image" id="exampleInputFile">
-                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            
-                            <label for="exampleInputEmail1" class="d-block">Status</label>
-                            <input type="checkbox" name="status" checked data-bootstrap-switch data-off-color="danger"
-                                data-on-color="success">
-                        </div>
-
-                    </div>
-                    <!-- /.card-body -->
-
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Create</button>
-                    </div>
+                    @include('dashboard.categories._form', ['button_lable' => 'Create'])
                 </form>
             </div>
 
