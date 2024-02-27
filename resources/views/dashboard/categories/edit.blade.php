@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Create Category')
+@section('title', 'Update Category')
 
 @section('breadcrumb')
     @parent

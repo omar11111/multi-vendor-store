@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -40,13 +41,10 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $request->merge(['slug' => Str::slug($request->post('name'))]);
-        $status = $request->post('status') ? 'active' : 'inactive';
-        $request->merge(['status' => $status]);
         $data = $request->except('image');
-
         $data['image'] = $this->uploadFile($request);
         Category::create($data);
         return Redirect::route('dashboard.categories.index')->with('success', 'Category Created');
@@ -88,19 +86,21 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         $category = Category::findOrFail($id);
+
         $oldImage = $category->image;
-        $status = $request->post('status') ? 'active' : 'inactive';
-        $request->merge(['status' => $status]);
         $data = $request->except('image');
 
-        $data['image'] = $this->uploadFile($request);
+        $path = $this->uploadFile($request);
+        if( $path ){
+            $data['image'] = $path;
+        }
 
         $category->update($data);
 
-        if ($oldImage && $data['image']) {
+        if ($oldImage && isset($data['image'])) {
             Storage::disk('public')->delete($oldImage);
         }
 
@@ -128,7 +128,7 @@ class CategoryController extends Controller
     protected function uploadFile($request)
     {
         if (!$request->hasFile('image')) {
-            return null;
+            return 0;
         }
 
         $file = $request->file('image');
